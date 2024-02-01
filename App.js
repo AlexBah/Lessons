@@ -1,37 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Alert, Image, TouchableWithoutFeedback} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 export default function App() {
-  const handleTextPress = () => console.log('text pressed');
-  const handleButtonPress = () => Alert.alert('Name of window', 'Main message', [
-    {text: 'yes', onPress: () => console.log('Yes button')},
-    {text: 'cancel', onPress: () => console.log('Cancel button')}
-  ]);
-
   return (
-// {'/n'} перевод строки
-    <View style={styles.container}>
+    <View style={styles.mainBlock}>
       <Text></Text>
-      <Text numberOfLines={1} style={styles.text} onPress={handleTextPress}>Hello!!</Text>
-      <Button title='Нажми на меня' color='red' onPress={handleButtonPress}/>
-      <TouchableWithoutFeedback onPress={handleButtonPress}>
-        <Image blurRadius={1} source={{
-          width: 200,
-          height: 150,
-          uri: "https://avatars.githubusercontent.com/u/37043482"
-        }}/>
-      </TouchableWithoutFeedback>
-    <StatusBar style="auto" /> 
+      <View style={[styles.box, {backgroundColor: 'yellow', alignSelf: 'flex-start'}]}></View>
+      <View style={[styles.box, {backgroundColor: 'red'}]}></View>
+      <View style={[styles.box, {backgroundColor: 'green'}]}></View>
     </View>
   );
 }
 
+const simpleStyle = {backgroundColor: 'red', color: 'blue'};
+
 const styles = StyleSheet.create({
-  container: {
+  mainBlock: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
+    flexDirection: "row",
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
-  text: {
-    color: 'red',
+  box: {
+    backgroundColor: 'red',
+    width: 100,
+    height: 100,
   },
 });
