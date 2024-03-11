@@ -1,30 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, View, Text} from 'react-native';
+import Header from './components/Header'
+import ListItem from './components/ListItem'
+import Form from './components/Form'
 
 export default function App() {
+  const [listOfItems, setListOfItems] = useState( [
+    {text: 'Купить молоко', key: '1'},
+    {text: 'Помыть машину', key: '2'},
+    {text: 'Купить картошку', key: '3'},
+    {text: 'Стать миллионером', key: '4'}
+  ] )
+
+  const addHandler= (text) => {
+    setListOfItems((list) => {
+      return [
+        { text: text, key: Math.random().toString(36).substring(7) },
+        ...list
+      ]
+    })
+  }
+
+  const deleteHandler = (key) => {
+    setListOfItems((list) => {
+      return list.filter(listOfItems => listOfItems.key != key)
+    });
+  }
+
   return (
-    <View style={styles.mainBlock}>
-      <Text></Text>
-      <View style={[styles.box, {backgroundColor: 'yellow', alignSelf: 'flex-start'}]}></View>
-      <View style={[styles.box, {backgroundColor: 'red'}]}></View>
-      <View style={[styles.box, {backgroundColor: 'green'}]}></View>
+    <View>
+      <Header />
+      <Form addHandler={addHandler}/>
+      <View>
+        <FlatList data={listOfItems} renderItem={({ item }) => (
+          <ListItem el={item} deleteHandler={deleteHandler} />
+        )}/>
+      </View>
     </View>
   );
 }
 
-const simpleStyle = {backgroundColor: 'red', color: 'blue'};
-
 const styles = StyleSheet.create({
-  mainBlock: {
-    flex: 1,
-    backgroundColor: 'black',
-    flexDirection: "row",
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  box: {
-    backgroundColor: 'red',
-    width: 100,
-    height: 100,
-  },
+
 });
