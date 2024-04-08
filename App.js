@@ -1,17 +1,32 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useState} from 'react';
+import {Button, Text, View} from 'react-native';
 
-const YourApp = () => {
+const Cat = props => {
+  const [isHungry, setIsHungry] = useState(true);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>Try editing me!</Text>
+    <View>
+      <Text>
+        I am {props.name}, and I am {isHungry ? 'hungry' : 'full'}!
+      </Text>
+      <Button
+        onPress={() => {
+          setIsHungry(false);
+        }}
+        disabled={!isHungry}
+        title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
+      />
     </View>
   );
 };
 
-export default YourApp;
+const Cafe = () => {
+  return (
+    <>
+      <Cat name="Munkustrap" />
+      <Cat name="Spot" />
+    </>
+  );
+};
+
+export default Cafe;
